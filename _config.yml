@@ -1,0 +1,9 @@
+title: fromPolandWithDev-exercise
+
+baseurl: "/fromPolandWithDev-exercise"
+url: "/fromPolandWithDev-exercise"
+
+collections:
+  products:
+    output: true
+    permalink: /:name/
