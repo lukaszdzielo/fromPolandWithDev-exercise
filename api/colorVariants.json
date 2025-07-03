@@ -1,0 +1,14 @@
+[
+    {
+        "code": "espresso",
+        "name":"Espresso",
+        "url": "/fromPolandWithDev-exercise/priscilla-suede-espresso",
+        "imgUrl": "../assets/img/priscilla-suede-espresso.webp"
+    },
+    {
+        "code": "red",
+        "name": "Red",
+        "url": "/fromPolandWithDev-exercise/priscilla-red-luster",
+        "imgUrl": "../assets/img/priscilla-red.webp"
+    }
+]
