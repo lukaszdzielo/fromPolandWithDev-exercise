@@ -1,6 +1,6 @@
 {
     "33333333333333": {
-        "sku": "STYLE NO.GY4579.S54-2019-B-6",
+        "sku": "STYLE NO.GY4579.S54-2019-A-6",
         "available": true,
         "quantity": 1,
         "props": {
@@ -10,7 +10,7 @@
         }
     },
     "22222222222222":{
-        "sku": "STYLE NO.GY4579.S54-2019-B-6.5",
+        "sku": "STYLE NO.GY4579.S54-2019-A-6.5",
         "available": true,
         "quantity": 1,
         "props": {
@@ -20,7 +20,7 @@
         }
     },
     "11111111111111": {
-        "sku": "STYLE NO.GY4579.S54-2019-B-7",
+        "sku": "STYLE NO.GY4579.S54-2019-A-7",
         "available": true,
         "quantity": 1,
         "props": {
