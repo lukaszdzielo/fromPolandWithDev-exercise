@@ -3,12 +3,14 @@
         "code": "espresso",
         "name":"Espresso",
         "url": "/fromPolandWithDev-exercise/priscilla-suede-espresso",
-        "imgUrl": "../assets/img/priscilla-suede-espresso.webp"
+        "imgUrl": "../assets/img/priscilla-suede-espresso.webp",
+        "available": true
     },
     {
         "code": "red",
         "name": "Red",
         "url": "/fromPolandWithDev-exercise/priscilla-red-luster",
-        "imgUrl": "../assets/img/priscilla-red.webp"
+        "imgUrl": "../assets/img/priscilla-red.webp",
+        "available": true
     }
 ]
