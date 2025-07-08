@@ -1,0 +1,12 @@
+<button @click="changeVariant('{{ include.elem }}', variant)" class="h-14 w-15 border cursor-pointer" :class="{
+    'border-2 border-blue-950': selectedVariant?.props?.['{{ include.elem }}'] == variant,
+    'relative border-gray-400 text-gray-400 overflow-hidden': !isAvailable('{{ include.elem }}', variant),
+}">
+    <span x-text="variant"></span>
+    <template x-if="!isAvailable('{{ include.elem }}', variant)">
+        <div class='
+        before:content-[""] before:absolute before:top-1/2 before:left-1/2 before:h-[1px] before:w-20 before:bg-gray-400 before:-translate-x-1/2 before:-translate-y-1/2 before:rotate-45
+        after:content-[""] after:absolute after:top-1/2 after:left-1/2 after:h-[1px] after:w-20 after:bg-gray-400 after:-translate-x-1/2 after:-translate-y-1/2 after:-rotate-45
+        '></div>
+    </template>
+</button>

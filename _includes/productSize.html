@@ -1,0 +1,150 @@
+<section class="{{ include.sectionClass }}" x-data="{
+    openVariants: false,
+    allVariants: {},
+    selectedVariant: {
+        id: null,
+        props: {}
+    },
+    variants: {},
+    async getAllVariants() {
+        this.allVariants = await (await fetch('{{site.baseurl}}/api/sizeVariants.json')).json();
+        this.selectedVariant = this.getInitVariant();
+        this.variants = this.getUniqueVariants();
+    },
+    getUniqueVariants() {
+        this.unique = {};
+        
+        for (const key in this.allVariants) {
+            const { props } = this.allVariants[key];
+            for (const key in props) {
+                if (!this.unique[key]) {
+                    this.unique[key] = new Set();
+                }
+                this.unique[key].add(props[key])
+            }
+        }
+        for (const prop in this.unique) {
+            this.unique[prop] = [...this.unique[prop]];
+        }
+        return this.unique;
+    },
+    getInitVariant() {
+        const params = new URLSearchParams(window.location.search);
+        let id = params.get('variant') || Object.keys(this.allVariants)[0];
+        const { props } = this.allVariants[id];
+        updateUrlParams('variant', id);
+        return {
+            id,
+            props
+        };
+    },
+    changeVariant(propKey, propNewVal) {
+        const match = this.findInVariants(propKey, propNewVal);
+        const [id, { props }] = match;
+        this.selectedVariant = {
+            id,
+            props
+        }
+        updateUrlParams('variant', id);
+    },
+    isAvailable(propKey, propNewVal) {
+        return this.findInVariants(propKey, propNewVal)[1]?.available;
+    },
+    findInVariants(propKey, propNewVal) {
+        const { props: variantProps } = this.allVariants[this.selectedVariant.id];
+        const props = {...variantProps};
+        props[propKey] = propNewVal;
+        return Object.entries(this.allVariants).find(([, item]) => Object.entries(props).every(([key, val]) => item.props?.[key] === val) );
+    }
+}"  x-init="getAllVariants()" style="background: rgb(226, 241, 241)">
+    <div class="py-2 px-4 bg-gray-50">
+        <div class="text-gray-600 text-sm">Selected</div>
+        <ul class="flex justify-between mt-2 text-lg text-blue-950">
+            <li>Size: <strong x-text="selectedVariant?.props.size">-</strong> </li>
+            <li>Width: <strong x-text="selectedVariant?.props.width">-</strong> </li>
+            <li>Toe + Heel: <strong x-text="selectedVariant?.props.toe_heel">-</strong> </li>
+        </ul>
+    </div>
+    <button @click="openVariants = true" class="flex justify-between items-center w-full border border-blue-950 p-4 bg-white text-blue-950 text-sm uppercase cursor-pointer">
+        <span>Choose size</span>
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="size-6 stroke-current">
+                <path d="M9 4.5L16.5 12L9 19.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </span>
+    </button>
+
+    <div x-show="openVariants" class="fixed inset-0">
+        <div @click="openVariants = false" class="absolute inset-0 bg-[rgba(0,0,0,.1)]"></div>
+        <div class="absolute top-0 right-0 bottom-0 w-full sm:w-104 p-4 bg-white">
+            <header>
+            Choose size
+            </header>
+        
+            <main class="py-4">
+
+                <section>
+                    <div>
+                        <span>Size</span>
+                        <span>icon</span>
+                    </div>
+                    <div class="flex items-center flex-wrap justify-center items-center gap-2 text-blue-950 my-2 py-2 bg-gray-50 text-center">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16" fill="none" role="img" aria-hidden="true" class="size-4 stroke-current">
+                                <path d="M11 3H13.5V5.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M10 6.5L13.5 3" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M6 13H3.5V10.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M7 9.5L3.5 13" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M13.5 10.5V13H11" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M10 9.5L13.5 13" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M3.5 5.5V3H6" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M7 6.5L3.5 3" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                        <span>Order a half size up for a wider fit</span>
+                    </div>
+                    <ul class="flex flex-wrap gap-4">
+                        <template x-for="variant of variants.size">
+                            <li>
+                                {% include productSizeBtn.html elem="size" %}
+                            </li>
+                        </template>
+                    </ul>
+                </section>
+
+                <section>
+                    <div>
+                        <span>Width - ABCD</span>
+                        <span>icon</span>
+                    </div>
+                    <ul class="flex flex-wrap gap-4">
+                        <template x-for="variant in variants.width">
+                            <li>
+                                {% include productSizeBtn.html elem="width" %}
+                            </li>
+                        </template>
+                    </ul>
+                </section>
+
+                <section>
+                    <div>
+                        <span>Toe + Heel - ABCD</span>
+                        <span>icon</span>
+                    </div>
+                    <ul class="flex flex-wrap gap-4">
+                        <template x-for="variant in variants.toe_heel">
+                            <li>
+                                {% include productSizeBtn.html elem="toe_heel" %}
+                            </li>
+                        </template>
+                    </ul>
+                </section>
+                
+            </main>
+            <footer class="flex gap-4">
+                <button @click="openVariants = false" class="flex justify-between items-center border border-blue-950 p-4 text-blue-950 uppercase cursor-pointer">Done</button>
+                {% include productAddToCartBtn.html btnClass="w-full" %}
+            </footer>
+        </div>
+    </div>
+</section>
