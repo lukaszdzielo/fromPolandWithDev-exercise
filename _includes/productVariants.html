@@ -9,6 +9,7 @@
     async getAllVariants() {
         this.allVariants = await (await fetch('{{site.baseurl}}/api/sizeVariants.json')).json();
         this.selectedVariant = this.getInitVariant();
+        this.updateSku(sku);
         this.variants = this.getUniqueVariants();
     },
     getUniqueVariants() {
@@ -31,7 +32,7 @@
     getInitVariant() {
         const params = new URLSearchParams(window.location.search);
         let id = params.get('variant') || Object.keys(this.allVariants)[0];
-        const { props } = this.allVariants[id];
+        const { props, sku } = this.allVariants[id];
         updateUrlParams('variant', id);
         return {
             id,
@@ -40,12 +41,13 @@
     },
     changeVariant(propKey, propNewVal) {
         const match = this.findInVariants(propKey, propNewVal);
-        const [id, { props }] = match;
+        const [id, { props, sku }] = match;
         this.selectedVariant = {
             id,
             props
         }
         updateUrlParams('variant', id);
+        this.updateSku(sku);
     },
     isAvailable(propKey, propNewVal) {
         return this.findInVariants(propKey, propNewVal)[1]?.available;
@@ -55,6 +57,9 @@
         const props = {...variantProps};
         props[propKey] = propNewVal;
         return Object.entries(this.allVariants).find(([, item]) => Object.entries(props).every(([key, val]) => item.props?.[key] === val) );
+    },
+    updateSku(sku) {
+        this.$dispatch('update-sku', this.allVariants[this.selectedVariant.id]?.sku)
     }
 }"  x-init="getAllVariants()" style="background: rgb(226, 241, 241)">
     <div class="py-2 px-4 bg-gray-50">
@@ -65,6 +70,7 @@
             <li>Toe + Heel: <strong x-text="selectedVariant?.props.toe_heel">-</strong> </li>
         </ul>
     </div>
+
     <button @click="openVariants = true" class="flex justify-between items-center w-full border border-blue-950 p-4 bg-white text-blue-950 text-sm uppercase cursor-pointer">
         <span>Choose size</span>
         <span>
@@ -106,7 +112,7 @@
                     <ul class="flex flex-wrap gap-4">
                         <template x-for="variant of variants.size">
                             <li>
-                                {% include productSizeBtn.html elem="size" %}
+                                {% include productVariantBtn.html elem="size" %}
                             </li>
                         </template>
                     </ul>
@@ -120,7 +126,7 @@
                     <ul class="flex flex-wrap gap-4">
                         <template x-for="variant in variants.width">
                             <li>
-                                {% include productSizeBtn.html elem="width" %}
+                                {% include productVariantBtn.html elem="width" %}
                             </li>
                         </template>
                     </ul>
@@ -134,7 +140,7 @@
                     <ul class="flex flex-wrap gap-4">
                         <template x-for="variant in variants.toe_heel">
                             <li>
-                                {% include productSizeBtn.html elem="toe_heel" %}
+                                {% include productVariantBtn.html elem="toe_heel" %}
                             </li>
                         </template>
                     </ul>
