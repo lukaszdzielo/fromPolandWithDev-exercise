@@ -9,26 +9,41 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     <style>
         :root {
+            --color-blue-900: #002855;
             --color-blue-950: #0C2752;
             --color-gray-400: #8F8F8F;
             --color-gray-600: #4D4D4D;
             --color-gray-300: #D9D9D9;
+            --color-stone-100: #ece8df;
+            --color-stone-700: #64563a;
         }
     </style>
 </head>
 <body>
     <div class="max-w-lg mx-auto" x-data="{
-        sku: '',
-    }" @update-sku="sku = $event.detail">
-        <div class="text-gray-600">{{ page.price.value }}</div>
+            sku: '',
+            productPrice: '{{ page.price.value }}',
+            productIsAvailable: null,
+            formattedPrice(price) {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 0
+                }).format(price);
+            }
+        }"
+        @update-sku="sku = $event.detail"
+        @update-product-availability="productIsAvailable = $event.detail"
+        >
+        <div class="text-gray-600" x-text="formattedPrice(productPrice)"></div>
         <h1 class="mt-[2px] mb-3 text-blue-950 text-3xl font-light uppercase">{{ page.title }}</h1>
         <div class="text-gray-600" x-text="sku"></div>
 
-        <hr class="my-6 border-t-gray-300">
+        <hr class="my-6 border-gray-300">
 
         {% include productColorVariants.html sectionClass="my-6" %}
 
-        <hr class="my-6 border-t-gray-300">
+        <hr class="my-6 border-gray-300">
 
         <div class="text-lg">
             <p>{{ page.description }}</p>
@@ -37,16 +52,24 @@
 
         {% include productVariants.html sectionClass="mt-2 mb-6" %}
 
+        <template x-if="(productIsAvailable != null) && !productIsAvailable">
+            <div class="mb-2">
+                This item is currently in stock at our retail store. To have it delivered to your home, call the store to place your order.
+            </div>
+        </template>
+
         {% include productAddToCartBtn.html btnClass="w-full" %}
 
-        <div>As low as $99/mo or 0% APR with Affirm. Check your purchasing power</div>
+        <div class="my-6 px-4 text-center">
+            <div>As low as $99/mo or 0% APR with <strong>Affirm</strong>. <a href="#" class="text-blue-900 underline whitespace-nowrap">Check your purchasing power</a></div>
+        </div>
 
-        <hr class="my-6 border-t-gray-300">
+        <hr class="my-6 border-gray-300">
 
-        <button class="flex justify-between items-center w-full border border-blue-950 p-4 text-blue-950 text-sm uppercase cursor-pointer">
+        <button class="flex justify-between items-center w-full border border-blue-950 p-4 text-blue-950 text-sm uppercase cursor-not-allowed">
             <span>Check availability in store</span>
             <span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="size-6 stroke-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 stroke-gray-600 fill-none">
                     <path d="M12 12.75C13.6569 12.75 15 11.4069 15 9.75C15 8.09315 13.6569 6.75 12 6.75C10.3431 6.75 9 8.09315 9 9.75C9 11.4069 10.3431 12.75 12 12.75Z" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M19.5 9.75C19.5 16.5 12 21.75 12 21.75C12 21.75 4.5 16.5 4.5 9.75C4.5 7.76088 5.29018 5.85322 6.6967 4.4467C8.10322 3.04018 10.0109 2.25 12 2.25C13.9891 2.25 15.8968 3.04018 17.3033 4.4467C18.7098 5.85322 19.5 7.76088 19.5 9.75V9.75Z" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
@@ -56,7 +79,7 @@
         <div class="flex flex-col gap-4 mt-6">
             <div class="flex justify-center items-center flex-wrap gap-2 text-blue-950 text-center">
                 <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none" role="img" aria-hidden="true" class="size-6 stroke-current">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24" role="img" aria-hidden="true" class="size-6 stroke-current fill-none">
                         <path d="M17 7.50002H20.9938C21.1432 7.49904 21.2894 7.54329 21.4132 7.62695C21.537 7.71061 21.6326 7.82977 21.6875 7.96877L23 11.25" stroke-linecap="round" stroke-linejoin="round"></path>
                         <path d="M2 13.5H17" stroke-linecap="round" stroke-linejoin="round"></path>
                         <path d="M18.125 20.25C19.3676 20.25 20.375 19.2426 20.375 18C20.375 16.7574 19.3676 15.75 18.125 15.75C16.8824 15.75 15.875 16.7574 15.875 18C15.875 19.2426 16.8824 20.25 18.125 20.25Z" stroke-miterlimit="10"></path>
@@ -70,7 +93,7 @@
             </div>
             <div class="flex justify-center items-center flex-wrap gap-2 text-blue-950 text-center">
                 <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="img" aria-hidden="true" class="size-6 stroke-current">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-hidden="true" class="size-6 stroke-current fill-none">
                         <path d="M7.5 11.25L3 15.75L7.5 20.25" stroke-linecap="round" stroke-linejoin="round"></path>
                         <path d="M7.5 5.25H15.75C17.1424 5.25 18.4777 5.80312 19.4623 6.78769C20.4469 7.77226 21 9.10761 21 10.5V10.5C21 11.8924 20.4469 13.2277 19.4623 14.2123C18.4777 15.1969 17.1424 15.75 15.75 15.75H3" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>

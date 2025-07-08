@@ -7,10 +7,15 @@
     },
     variants: {},
     async getAllVariants() {
-        this.allVariants = await (await fetch('{{site.baseurl}}/api/sizeVariants.json')).json();
-        this.selectedVariant = this.getInitVariant();
-        this.updateSku(sku);
-        this.variants = this.getUniqueVariants();
+        try {
+            this.allVariants = await (await fetch('{{site.baseurl}}/api/sizeVariants.json')).json();
+            this.selectedVariant = this.getInitVariant();
+            this.updateProductSku();
+            this.updateProductAvailability();
+            this.variants = this.getUniqueVariants();
+        } catch (error) {
+            console.log(error)
+        }
     },
     getUniqueVariants() {
         this.unique = {};
@@ -47,7 +52,8 @@
             props
         }
         updateUrlParams('variant', id);
-        this.updateSku(sku);
+        this.updateProductSku();
+        this.updateProductAvailability();
     },
     isAvailable(propKey, propNewVal) {
         return this.findInVariants(propKey, propNewVal)[1]?.available;
@@ -58,10 +64,15 @@
         props[propKey] = propNewVal;
         return Object.entries(this.allVariants).find(([, item]) => Object.entries(props).every(([key, val]) => item.props?.[key] === val) );
     },
-    updateSku(sku) {
-        this.$dispatch('update-sku', this.allVariants[this.selectedVariant.id]?.sku)
+    updateProductSku() {
+        this.$dispatch('update-sku', this.allVariants[this.selectedVariant.id]?.sku);
+    },
+    updateProductAvailability(isAvailable) {
+        const { id } = this.selectedVariant;
+        const { available } = this.allVariants[id];
+        this.$dispatch('update-product-availability', available);
     }
-}"  x-init="getAllVariants()" style="background: rgb(226, 241, 241)">
+}"  x-init="getAllVariants()">
     <div class="py-2 px-4 bg-gray-50">
         <div class="text-gray-600 text-sm">Selected</div>
         <ul class="flex justify-between mt-2 text-lg text-blue-950">
@@ -74,83 +85,12 @@
     <button @click="openVariants = true" class="flex justify-between items-center w-full border border-blue-950 p-4 bg-white text-blue-950 text-sm uppercase cursor-pointer">
         <span>Choose size</span>
         <span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="size-6 stroke-current">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 stroke-current fill-none">
                 <path d="M9 4.5L16.5 12L9 19.5" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
         </span>
     </button>
 
-    <div x-show="openVariants" class="fixed inset-0">
-        <div @click="openVariants = false" class="absolute inset-0 bg-[rgba(0,0,0,.1)]"></div>
-        <div class="absolute top-0 right-0 bottom-0 w-full sm:w-104 p-4 bg-white">
-            <header>
-            Choose size
-            </header>
-        
-            <main class="py-4">
-
-                <section>
-                    <div>
-                        <span>Size</span>
-                        <span>icon</span>
-                    </div>
-                    <div class="flex items-center flex-wrap justify-center items-center gap-2 text-blue-950 my-2 py-2 bg-gray-50 text-center">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16" fill="none" role="img" aria-hidden="true" class="size-4 stroke-current">
-                                <path d="M11 3H13.5V5.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M10 6.5L13.5 3" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M6 13H3.5V10.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M7 9.5L3.5 13" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M13.5 10.5V13H11" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M10 9.5L13.5 13" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M3.5 5.5V3H6" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M7 6.5L3.5 3" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                        <span>Order a half size up for a wider fit</span>
-                    </div>
-                    <ul class="flex flex-wrap gap-4">
-                        <template x-for="variant of variants.size">
-                            <li>
-                                {% include productVariantBtn.html elem="size" %}
-                            </li>
-                        </template>
-                    </ul>
-                </section>
-
-                <section>
-                    <div>
-                        <span>Width - ABCD</span>
-                        <span>icon</span>
-                    </div>
-                    <ul class="flex flex-wrap gap-4">
-                        <template x-for="variant in variants.width">
-                            <li>
-                                {% include productVariantBtn.html elem="width" %}
-                            </li>
-                        </template>
-                    </ul>
-                </section>
-
-                <section>
-                    <div>
-                        <span>Toe + Heel - ABCD</span>
-                        <span>icon</span>
-                    </div>
-                    <ul class="flex flex-wrap gap-4">
-                        <template x-for="variant in variants.toe_heel">
-                            <li>
-                                {% include productVariantBtn.html elem="toe_heel" %}
-                            </li>
-                        </template>
-                    </ul>
-                </section>
-                
-            </main>
-            <footer class="flex gap-4">
-                <button @click="openVariants = false" class="flex justify-between items-center border border-blue-950 p-4 text-blue-950 uppercase cursor-pointer">Done</button>
-                {% include productAddToCartBtn.html btnClass="w-full" %}
-            </footer>
-        </div>
-    </div>
+    {% include productVariantsDialog.html %}
+    
 </section>
