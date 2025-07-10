@@ -1,0 +1,54 @@
+<section class="max-w-screen-lg mx-auto my-16 px-4 [&>div]:border-b [&>div]:border-b-gray-300">
+    <div id="accordionDescription" x-data="{ open: false }" @collapse-open.window=" if ($event.detail === $el.id) open = true; scrollTo($el)">
+        <button @click="open = !open" class="flex justify-between items-center w-full px-4 py-6 text-blue-950 font-medium tracking-wide uppercase cursor-pointer">
+            <span>Description</span>
+            <span class='relative block size-6 duration-300
+                before:content-[""] before:absolute before:top-1/2 before:left-1/2 before:h-[1px] before:w-6 before:bg-gray-400 before:-translate-x-1/2 before:-translate-y-1/2 
+                after:content-[""]  after:absolute  after:top-1/2  after:left-1/2  after:h-[1px]  after:w-6 after:bg-gray-400 after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-90
+            ' :class="{ 'rotate-45': open }">
+            </span>
+        </button>
+        <div class="grid duration-300":class="{
+            'grid-rows-[1fr]': open,
+            'grid-rows-[0fr]': !open,
+        }">
+            <div class="overflow-hidden">
+                <div class="max-w-3xl mx-auto pb-8 text-lg">
+                    <p>Our No. 1 bestselling boot for women, Priscilla walks an elegant line between timeless classic and cowgirl chic. The vintage-inspired Tioga stitch pattern harks back to yesteryear, but Priscilla is a boot built for today. This knee-skimming, pull-on silhouette handcrafted from supple Mad Dog goat leather deserves the spotlight under dresses and over jeans. Handmade in Texas.</p>
+                    <ul class="flex flex-col gap-1 mt-4 ps-6 list-disc">
+                        <li>Mad Dog goat vamps</li>
+                        <li>Mad Dog goat quarters</li>
+                        <li>17-inch quarters</li>
+                        <li>Tioga quarter stitch pattern</li>
+                        <li>Detailed vamp stitch pattern</li>
+                        <li>CJ pull straps with overlay</li>
+                        <li>Mahogany stacked-leather heel</li>
+                        <li>Single-stitched welt</li>
+                        <li>Leather outsole</li>
+                        <li>Handmade in Texas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="accordionMaterial" >
+        <button @click="open = !open" class="flex justify-between items-center w-full px-4 py-6 text-blue-950 font-medium tracking-wide uppercase cursor-not-allowed">
+            <span>Material</span>
+            <span class='relative block size-6 duration-300
+                before:content-[""] before:absolute before:top-1/2 before:left-1/2 before:h-[1px] before:w-6 before:bg-gray-400 before:-translate-x-1/2 before:-translate-y-1/2 
+                after:content-[""]  after:absolute  after:top-1/2  after:left-1/2  after:h-[1px]  after:w-6 after:bg-gray-400 after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-90
+            '>
+            </span> 
+        </button>
+    </div>
+    <div id="accordionCare" >
+        <button @click="open = !open" class="flex justify-between items-center w-full px-4 py-6 text-blue-950 font-medium tracking-wide uppercase cursor-not-allowed">
+            <span>Care</span>
+            <span class='relative block size-6 duration-300
+                before:content-[""] before:absolute before:top-1/2 before:left-1/2 before:h-[1px] before:w-6 before:bg-gray-400 before:-translate-x-1/2 before:-translate-y-1/2 
+                after:content-[""]  after:absolute  after:top-1/2  after:left-1/2  after:h-[1px]  after:w-6 after:bg-gray-400 after:-translate-x-1/2 after:-translate-y-1/2 after:rotate-90
+            '>
+            </span>
+        </button>
+    </div>
+</section>

@@ -1,0 +1,154 @@
+[
+    {
+        "name": "Priscilla Suede",
+        "price": 1095,
+        "colorCode": "espresso",
+        "available": true,
+        "url": "/fromPolandWithDev-exercise/priscilla-suede-espresso",
+        "imgs": [
+            "/assets/img/GY4579.S54_Right_5000x.webp",
+            "/assets/img/GY4579.S54_Pair_5000x.webp"
+        ],
+        "variantsText": " colors.",
+        "variants": [
+            {
+                "name": "Priscilla Suede",
+                "colorName": "Espresso",
+                "colorCode": "espresso",
+                "url": "/fromPolandWithDev-exercise/priscilla-suede-espresso",
+                "imgUrl": "../assets/img/priscilla-suede-espresso.webp",
+                "available": true,
+                "imgs": [
+                    "/assets/img/GY4579.S54_Right_5000x.webp",
+                    "/assets/img/GY4579.S54_Pair_5000x.webp"
+                ]
+            },
+            {
+                "name": "Priscilla",
+                "colorName": "Red",
+                "colorCode": "red",
+                "url": "/fromPolandWithDev-exercise/priscilla-red-luster",
+                "imgUrl": "../assets/img/priscilla-red.webp",
+                "available": true,
+                "imgs": [
+                    "/assets/img/N4830.54-6010_Right_91926abf-4f85-4aaa-847a-614881476036_5000x.webp",
+                    "/assets/img/N4830.54-6010_Pair_ec80d542-099d-4473-8db1-b8e4e196af62_5000x.webp"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Priscilla",
+        "price": 1095,
+        "colorCode": "red",
+        "available": true,
+        "url": "/fromPolandWithDev-exercise/priscilla-red-luster",
+        "imgs": [
+            "/assets/img/N4830.54-6010_Right_91926abf-4f85-4aaa-847a-614881476036_5000x.webp",
+            "/assets/img/N4830.54-6010_Pair_ec80d542-099d-4473-8db1-b8e4e196af62_5000x.webp"
+        ],
+        "variantsText": " colors.",
+        "variants": [
+            {
+                "name": "Priscilla Suede",
+                "colorName": "Espresso",
+                "colorCode": "espresso",
+                "url": "/fromPolandWithDev-exercise/priscilla-suede-espresso",
+                "imgUrl": "../assets/img/priscilla-suede-espresso.webp",
+                "available": true,
+                "imgs": [
+                    "/assets/img/GY4579.S54_Right_5000x.webp",
+                    "/assets/img/GY4579.S54_Pair_5000x.webp"
+                ]
+            },
+            {
+                "name": "Priscilla",
+                "colorName": "Red",
+                "colorCode": "red",
+                "url": "/fromPolandWithDev-exercise/priscilla-red-luster",
+                "imgUrl": "../assets/img/priscilla-red.webp",
+                "available": true,
+                "imgs": [
+                    "/assets/img/N4830.54-6010_Right_91926abf-4f85-4aaa-847a-614881476036_5000x.webp",
+                    "/assets/img/N4830.54-6010_Pair_ec80d542-099d-4473-8db1-b8e4e196af62_5000x.webp"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Priscilla Suede",
+        "price": 1095,
+        "colorCode": "espresso",
+        "available": true,
+        "url": "/fromPolandWithDev-exercise/priscilla-suede-espresso",
+        "imgs": [
+            "/assets/img/GY4579.S54_Right_5000x.webp",
+            "/assets/img/GY4579.S54_Pair_5000x.webp"
+        ],
+        "variantsText": " colors.",
+        "variants": [
+            {
+                "name": "Priscilla Suede",
+                "colorName": "Espresso",
+                "colorCode": "espresso",
+                "url": "/fromPolandWithDev-exercise/priscilla-suede-espresso",
+                "imgUrl": "../assets/img/priscilla-suede-espresso.webp",
+                "available": true,
+                "imgs": [
+                    "/assets/img/GY4579.S54_Right_5000x.webp",
+                    "/assets/img/GY4579.S54_Pair_5000x.webp"
+                ]
+            },
+            {
+                "name": "Priscilla",
+                "colorName": "Red",
+                "colorCode": "red",
+                "url": "/fromPolandWithDev-exercise/priscilla-red-luster",
+                "imgUrl": "../assets/img/priscilla-red.webp",
+                "available": true,
+                "imgs": [
+                    "/assets/img/N4830.54-6010_Right_91926abf-4f85-4aaa-847a-614881476036_5000x.webp",
+                    "/assets/img/N4830.54-6010_Pair_ec80d542-099d-4473-8db1-b8e4e196af62_5000x.webp"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Priscilla",
+        "price": 1095,
+        "colorCode": "red",
+        "available": true,
+        "url": "/fromPolandWithDev-exercise/priscilla-red-luster",
+        "imgs": [
+            "/assets/img/N4830.54-6010_Right_91926abf-4f85-4aaa-847a-614881476036_5000x.webp",
+            "/assets/img/N4830.54-6010_Pair_ec80d542-099d-4473-8db1-b8e4e196af62_5000x.webp"
+        ],
+        "variantsText": " colors.",
+        "variants": [
+            {
+                "name": "Priscilla Suede",
+                "colorName": "Espresso",
+                "colorCode": "espresso",
+                "url": "/fromPolandWithDev-exercise/priscilla-suede-espresso",
+                "imgUrl": "../assets/img/priscilla-suede-espresso.webp",
+                "available": true,
+                "imgs": [
+                    "/assets/img/GY4579.S54_Right_5000x.webp",
+                    "/assets/img/GY4579.S54_Pair_5000x.webp"
+                ]
+            },
+            {
+                "name": "Priscilla",
+                "colorName": "Red",
+                "colorCode": "red",
+                "url": "/fromPolandWithDev-exercise/priscilla-red-luster",
+                "imgUrl": "../assets/img/priscilla-red.webp",
+                "available": true,
+                "imgs": [
+                    "/assets/img/N4830.54-6010_Right_91926abf-4f85-4aaa-847a-614881476036_5000x.webp",
+                    "/assets/img/N4830.54-6010_Pair_ec80d542-099d-4473-8db1-b8e4e196af62_5000x.webp"
+                ]
+            }
+        ]
+    }
+]
