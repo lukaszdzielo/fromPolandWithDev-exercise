@@ -1,4 +1,4 @@
-<template x-if="productIsAvailable != null">
+<template x-if="productIsAvailable != null" x-cloak>
     <button class="flex justify-center items-center p-4 border text-white {{ include.btnClass}} cursor-not-allowed" :class="{
         'border-blue-950 bg-blue-950': productIsAvailable,
         'border-stone-700 bg-stone-700': !productIsAvailable,
