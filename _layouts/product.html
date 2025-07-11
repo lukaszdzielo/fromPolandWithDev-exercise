@@ -22,6 +22,9 @@
             --color-stone-100: #ece8df;
             --color-stone-700: #64563a;
         }
+        html {
+            scrollbar-gutter: stable;
+        }
         [x-cloak] { display: none !important; }
     </style>
 </head>
@@ -29,9 +32,20 @@
     sku: '',
     productPrice: '{{ page.price.value }}',
     productIsAvailable: null,
+    modals: [],
+    showModal(el) {
+        el.showModal();
+        this.modals.push(el);
+    },
+    hideModal(el) {
+        el.close();
+        this.modals.splice(this.modals.indexOf(el), 1);
+    }
 }"
 @update-sku="sku = $event.detail"
-@update-product-availability="productIsAvailable = $event.detail"
+@update-product-availability="productIsAvailable = $event.detail" :class="{
+    'overflow-hidden': modals.length > 0
+}"
 >
 
     <header>

@@ -1,11 +1,8 @@
-<div x-show="openVariants" class="fixed inset-0" style="display: none">
-    
-    <div @click="openVariants = false" class="absolute inset-0 bg-[rgba(0,0,0,.1)]"></div>
-
-    <div class="absolute top-0 right-0 bottom-0 flex flex-col w-full sm:w-104 bg-white">
+<dialog x-init="dialog = $el" class="m-auto me-0 max-h-full h-full">
+    <div class="flex flex-col w-full sm:w-104 bg-white">
         <header class="flex justify-between flex-wrap items-center p-4 pb-0">
             <span class="text-xl font-light uppercase tracking-wider">Choose size</span>
-            <button @click="openVariants = false" class="flex justify-between items-center cursor-pointer text-blue-950">
+            <button @click="hideModal(dialog)" class="flex justify-between items-center cursor-pointer text-blue-950">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" class="size-6 stroke-current stroke-1">
                     <path d="M18.75 5.25L5.25 18.75" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M18.75 18.75L5.25 5.25" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -122,9 +119,9 @@
                 <div class="mb-4 p-2 bg-stone-100 text-stone-700">This item is currently <strong>in stock</strong> at our retail store. To have it delivered to your home, call the store to place your order.</div>
             </template>
             <div class="flex gap-4 ">
-                <button @click="openVariants = false" class="flex justify-between items-center border border-blue-950 p-4 text-blue-950 uppercase cursor-pointer">Done</button>
+                <button @click="hideModal(dialog)" class="flex justify-between items-center border border-blue-950 p-4 text-blue-950 uppercase cursor-pointer">Done</button>
                 {% include productAddToCartBtn.html btnClass="w-full" %}
             </div>
         </footer>
     </div>
-</div>
+</dialog>
