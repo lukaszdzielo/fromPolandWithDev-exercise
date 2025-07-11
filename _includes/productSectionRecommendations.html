@@ -14,7 +14,7 @@
         }
     },
     async initSwiper() {
-        this.swiper = new Swiper('.swiper', {
+        this.swiper = new Swiper('.swiperRecommendations', {
             slidesPerView: 2,
             spaceBetween: 2,
             loop: true,
@@ -27,11 +27,11 @@
 }">
     <div class="flex flex-col lg:flex-row justify-center items-center lg:items-stretch">
         <div class="max-w-122 lg:max-w-[40%] 2xl:max-w-[34%] px-4 lg:px-10">
-            <img src="{{ site.baseurl }}/assets/img/recommendations.jpg" alt="" class="w-full h-full object-cover">
+            <img src="{{ site.baseurl }}/assets/img/recommendations.jpg" alt="" class="w-full h-full object-cover" loading="lazy">
         </div>
         <div class="contents lg:block w-full lg:max-w-[60%] 2xl:max-w-[66%] lg:-mt-2">
             <h2 class="-order-1 lg:order-none mb-6 lg:mb-0 px-4 lg:p-0 text-3xl font-light uppercase tracking-wider text-blue-950 text-center lg:text-start" x-text="sectionTitle"></h2>
-            <div class="swiper w-full mt-6">
+            <div class="swiperRecommendations swiper w-full mt-6">
                 <div class="swiper-wrapper bg-white">
                     <template x-for="item in items">
                         <div class="swiper-slide bg-gray-100">
@@ -45,12 +45,12 @@
                                 }
                             }">
                                 <template x-if="item.imgs && item.imgs.length === 1">
-                                    <img :src="item.imgs[0]" :alt="item.variants" />
+                                    <img :src="item.imgs[0]" :alt="item.variants" loading="lazy">
                                 </template>
                                 <template x-if="item.imgs && item.imgs.length === 2">
                                     <div class="relative group/img">
-                                        <img :src="`{{ site.baseurl }}${item.imgs[0]}`" :alt="item.name" class="block" />
-                                        <img :src="`{{ site.baseurl }}${item.imgs[1]}`" :alt="item.name" class="absolute inset-0 w-full h-full opacity-0 group-hover/img:opacity-100 transition-opacity duration-300" />
+                                        <img :src="`{{ site.baseurl }}${item.imgs[0]}`" :alt="item.name" class="block" loading="lazy">
+                                        <img :src="`{{ site.baseurl }}${item.imgs[1]}`" :alt="item.name" class="absolute inset-0 w-full h-full opacity-0 group-hover/img:opacity-100 transition-opacity duration-300" loading="lazy">
                                     </div>
                                 </template>
                                 <template x-if="item?.variants.length > 1">
@@ -65,17 +65,12 @@
                                             <ul class="flex-wrap gap-x-1 gap-y-1 hidden group-hover/item:flex">
                                                 <template x-for="variant in item.variants">
                                                     <li>
-                                                        <template x-if="item.colorCode === variant?.colorCode">
-                                                            <span @click.prevent :title="variant.name" class="block p-[1px] rounded-full border-1 border-blue-950 cursor-default">
-                                                                <img :src="variant?.imgUrl" :alt="variant?.name" class="size-7 rounded-full object-cover" loading="lazy">
-                                                            </span>
-                                                        </template>
-
-                                                        <template x-if="item.colorCode !== variant?.colorCode">
-                                                            <button @click.prevent="changeVariant(variant.colorCode)" :title="variant.name" class="block p-[1px] rounded-full border-1 border-gray-300 cursor-pointer">
-                                                                <img :src="variant?.imgUrl" :alt="variant?.name" class="size-7 rounded-full object-cover" loading="lazy">
-                                                            </button>
-                                                        </template>
+                                                        <button @click.prevent="if (item.colorCode !== variant?.colorCode) changeVariant(variant.colorCode)" :title="variant.name" class="block p-[1px] rounded-full border-1 border-blue-950 " :class="{
+                                                            'border-blue-950 cursor-default': item.colorCode === variant?.colorCode,
+                                                            'border-gray-300 cursor-pointer': item.colorCode !== variant?.colorCode,
+                                                        }">
+                                                            <img :src="variant?.imgUrl" :alt="variant?.name" class="size-7 rounded-full object-cover" loading="lazy">
+                                                        </button>
                                                     </li>
                                                 </template>
                                             </ul>

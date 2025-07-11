@@ -1,5 +1,86 @@
-<section class="{{ include.sectionClass }}">
-    {% for imgSrc in page.imgs %}
-        <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}">
-    {% endfor %}
+<section class="{{ include.sectionClass }}" x-data="{
+    swiperMain: null,
+    swiperThum: null,
+    screen: null,
+    desktopMoreVisible: false,
+    async init() {
+        this.screen = window.innerWidth >= 768 ? 'desktop' : 'mobile';
+        if (this.screen === 'mobile') {
+            await this.initSwiperThum();
+            await this.initSwiperMain();
+        }
+    },
+    async initSwiperThum() {
+        this.swiperThum = new Swiper('.swiperThum', {
+            slidesPerView: 3.5,
+            spaceBetween: 2,
+            loop: true,
+        });
+    },
+    async initSwiperMain() {
+        this.swiperMain = new Swiper('.swiperMain', {
+            slidesPerView: 1,
+            spaceBetween: 2,
+            loop: true,
+            thumbs: { swiper: this.swiperThum }
+        });
+        console.log(this.swiperMain);
+    }
+}">
+    <div class="hidden md:flex flex-col">
+        <div class="grid">
+            {% for imgSrc in page.imgs limit:3 %}
+                <div class="swiper-slide">
+                    <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}" class="{{ include.imgClass }}">
+                </div>
+            {% endfor %}
+        </div>
+        <div class="grid duration-300" :class="{
+            'grid-rows-[1fr]': desktopMoreVisible,
+            'grid-rows-[0fr]': !desktopMoreVisible,
+        }">
+            <div class="block overflow-hidden">
+                <div class="block">
+                    {% for imgSrc in page.imgs offset:3 %}
+                        <div class="swiper-slide">
+                            <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}" class="{{ include.imgClass }}">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="flex px-4">
+            <button @click="desktopMoreVisible = !desktopMoreVisible" class="flex justify-between items-center w-68 mt-6 mx-auto border border-blue-950 p-4 text-sm font-medium tracking-wide uppercase cursor-pointer">
+                <span x-text=" `Show ${desktopMoreVisible ? 'less' : 'more'} media ( ${ {{ page.imgs | size }} - 3 } )`"></span>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="size-6 stroke-gray-600" :class="{
+                        '-rotate-90': desktopMoreVisible,
+                        'rotate-90': !desktopMoreVisible,
+                    }">
+                        <path d="M9 4.5L16.5 12L9 19.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </span>
+            </button>
+        </div>
+    </div>
+    <div class="md:hidden">
+        <div class="swiperMain swiper mt-[2px]">
+            <div class="swiper-wrapper">
+                {% for imgSrc in page.imgs %}
+                    <div class="swiper-slide">
+                        <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="swiperThum swiper mt-[2px]">
+            <div class="swiper-wrapper">
+                {% for imgSrc in page.imgs %}
+                    <div class="swiper-slide">
+                        <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </section>
