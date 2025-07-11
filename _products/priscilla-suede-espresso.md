@@ -19,6 +19,10 @@ colorName: Espresso
 description: Our No. 1 bestselling boot for women, Priscilla walks an elegant line between timeless classic and cowgirl chic. The vintage-inspired Tioga stitch pattern harks back to yesteryear, but Priscilla is...
 imgs: [
     "/assets/img/GY4579.S54_Right_5000x.webp",
+    "/assets/img/GY4579.S54_Pair_5000x.webp",
+    "/assets/img/GY4579.S54_Right_5000x.webp",
+    "/assets/img/GY4579.S54_Pair_5000x.webp",
+    "/assets/img/GY4579.S54_Right_5000x.webp",
     "/assets/img/GY4579.S54_Pair_5000x.webp"
 ]
 ---
