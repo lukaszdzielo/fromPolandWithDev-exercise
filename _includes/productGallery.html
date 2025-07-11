@@ -5,6 +5,9 @@
     async init() {
         await this.initSwiperThum();
         await this.initSwiperMain();
+
+        Fancybox.bind('[data-fancybox]', {
+        });
     },
     async initSwiperThum() {
         this.swiperThum = new Swiper('.swiperThum', {
@@ -20,14 +23,13 @@
             loop: true,
             thumbs: { swiper: this.swiperThum }
         });
-        console.log(this.swiperMain);
     }
 }">
     <div class="hidden md:flex flex-col">
         <div class="grid">
             {% for imgSrc in page.imgs limit:3 %}
                 <div class="swiper-slide">
-                    <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}" class="{{ include.imgClass }}" loading="lazy">
+                    <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}" class="{{ include.imgClass }}" data-fancybox="galleryDesktop" loading="lazy">
                 </div>
             {% endfor %}
         </div>
@@ -39,7 +41,7 @@
                 <div class="block">
                     {% for imgSrc in page.imgs offset:3 %}
                         <div class="swiper-slide">
-                            <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}" class="{{ include.imgClass }}" loading="lazy">
+                            <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}" class="{{ include.imgClass }}" data-fancybox="galleryDesktop" loading="lazy">
                         </div>
                     {% endfor %}
                 </div>
@@ -64,7 +66,7 @@
             <div class="swiper-wrapper">
                 {% for imgSrc in page.imgs %}
                     <div class="swiper-slide">
-                        <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}"  loading="lazy">
+                        <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}" data-fancybox="galleryMobile" loading="lazy">
                     </div>
                 {% endfor %}
             </div>
@@ -73,7 +75,7 @@
             <div class="swiper-wrapper">
                 {% for imgSrc in page.imgs %}
                     <div class="swiper-slide">
-                        <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}"  loading="lazy">
+                        <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}" loading="lazy">
                     </div>
                 {% endfor %}
             </div>
