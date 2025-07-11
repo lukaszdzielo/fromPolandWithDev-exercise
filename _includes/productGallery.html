@@ -12,14 +12,14 @@
     async initSwiperThum() {
         this.swiperThum = new Swiper('.swiperThum', {
             slidesPerView: 3.5,
-            spaceBetween: 2,
+            spaceBetween: 1,
             loop: true,
         });
     },
     async initSwiperMain() {
         this.swiperMain = new Swiper('.swiperMain', {
             slidesPerView: 1,
-            spaceBetween: 2,
+            spaceBetween: 1,
             loop: true,
             thumbs: { swiper: this.swiperThum }
         });
@@ -71,10 +71,10 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="swiperThum swiper mt-[2px]">
-            <div class="swiper-wrapper">
+        <div class="swiperThum swiper mt-[1px]" x-cloak>
+            <div class="swiper-wrapper [&>.swiper-slide-thumb-active:after]:content-[''] [&>.swiper-slide-thumb-active:after]:block [&>.swiper-slide-thumb-active:after]:absolute [&>.swiper-slide-thumb-active:after]:bottom-0 [&>.swiper-slide-thumb-active:after]:inset-x-0 [&>.swiper-slide-thumb-active:after]:h-1 [&>.swiper-slide-thumb-active:after]:bg-blue-950">
                 {% for imgSrc in page.imgs %}
-                    <div class="swiper-slide">
+                    <div class="swiper-slide relative">
                         <img src="{{ site.baseurl }}{{ imgSrc }}" alt="{{ page.title }} :: {{ page.colorName }}" loading="lazy">
                     </div>
                 {% endfor %}
